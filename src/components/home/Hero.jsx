@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
+import heroVideo from "../../assets/hero-video.mp4"
 
 export default function Hero() {
   const ref = useRef(null)
@@ -12,22 +13,18 @@ export default function Hero() {
 
   return (
     <section ref={ref} className="relative flex min-h-[85vh] items-center justify-center overflow-hidden">
-      <motion.div
-        style={{ y: bgY }}
-        className="absolute inset-0 bg-cover bg-center"
-        initial={{ scale: 1.15 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div
-          className="h-full w-full bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1502877338535-766e1452684a?w=1600&q=80')",
-          }}
-        />
+      <motion.div style={{ y: bgY }} className="absolute inset-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="h-full w-full object-cover"
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black" />
+      <div className="absolute inset-0 bg-gradient-to-b from-navy/70 via-navy/60 to-navy" />
 
       <motion.div style={{ y: contentY, opacity: contentOpacity }} className="relative z-10 mx-auto max-w-4xl px-5 text-center">
         <motion.p
@@ -36,21 +33,21 @@ export default function Hero() {
           transition={{ duration: 0.6 }}
           className="mb-4 text-sm font-medium uppercase tracking-[0.3em] text-white/60"
         >
-          Your window into the world of vehicles
+          Your Window into the World of Vehicles
         </motion.p>
 
         <motion.h1
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.7, delay: 0.1 }}
-  className="relative text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl"
->
-  <span
-    className="pointer-events-none absolute -inset-x-10 -inset-y-16 -z-10 opacity-25 blur-3xl gradient-signature"
-    aria-hidden="true"
-  />
-  THE WORLD OF MOTORS,<br />IN MOTION.
-</motion.h1>
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="relative text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl"
+        >
+          <span
+            className="pointer-events-none absolute -inset-x-10 -inset-y-16 -z-10 opacity-25 blur-3xl gradient-signature"
+            aria-hidden="true"
+          />
+          THE WORLD OF MOTORS,<br />IN MOTION.
+        </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}

@@ -33,3 +33,29 @@ export async function getVehicleBySlug(slug) {
   if (error) throw error
   return data
 }
+
+export async function getFeaturedVehicles() {
+  const { data, error } = await supabase
+    .from("vehicles")
+    .select("*, manufacturers(name, slug)")
+    .eq("is_published", true)
+    .eq("is_featured", true)
+    .order("created_at", { ascending: false })
+    .limit(4)
+
+  if (error) throw error
+  return data
+}
+
+export async function getCarOfTheDay() {
+  const { data, error } = await supabase
+    .from("vehicles")
+    .select("*, manufacturers(name, slug)")
+    .eq("is_published", true)
+    .eq("is_car_of_the_day", true)
+    .limit(1)
+    .maybeSingle()
+
+  if (error) throw error
+  return data
+}

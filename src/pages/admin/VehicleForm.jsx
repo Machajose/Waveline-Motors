@@ -5,10 +5,10 @@ import { getVehicleById, createVehicle, updateVehicle } from "../../lib/queries/
 
 const emptyForm = {
   slug: "", manufacturer_id: "", model_name: "", generation: "", year_range: "",
-  image_url: "", tagline: "", story_text: "", price: "", horsepower: "",
-  body_type: "", fuel: "", transmission: "", condition: "", is_published: true,
+  image_url: "", tagline: "", story_text: "", fact_text: "", price: "", horsepower: "",
+  body_type: "", fuel: "", transmission: "", condition: "",
+  is_published: true, is_featured: false, is_car_of_the_day: false,
 }
-
 export default function AdminVehicleForm() {
   const { id } = useParams()
   const isEditing = !!id
@@ -129,11 +129,25 @@ export default function AdminVehicleForm() {
           </div>
         </div>
 
-        <label className="flex items-center gap-2 text-sm text-white/60">
-          <input type="checkbox" name="is_published" checked={form.is_published} onChange={handleChange} />
-          Published (visible on public site)
-        </label>
+       <div>
+  <label className={labelClass}>Interesting Fact (shown on Car of the Day)</label>
+  <textarea name="fact_text" value={form.fact_text || ""} onChange={handleChange} rows={2} className={inputClass} />
+</div>
 
+<div className="space-y-2">
+  <label className="flex items-center gap-2 text-sm text-white/60">
+    <input type="checkbox" name="is_published" checked={form.is_published} onChange={handleChange} />
+    Published (visible on public site)
+  </label>
+  <label className="flex items-center gap-2 text-sm text-white/60">
+    <input type="checkbox" name="is_featured" checked={form.is_featured || false} onChange={handleChange} />
+    Show in Featured Vehicles (homepage)
+  </label>
+  <label className="flex items-center gap-2 text-sm text-white/60">
+    <input type="checkbox" name="is_car_of_the_day" checked={form.is_car_of_the_day || false} onChange={handleChange} />
+    Set as Car of the Day
+  </label>
+</div>
         <div className="flex gap-3 pt-4">
           <button type="submit" disabled={saving} className="rounded-full bg-accent px-6 py-2.5 text-sm font-semibold disabled:opacity-50">
             {saving ? "Saving…" : isEditing ? "Save Changes" : "Add Vehicle"}

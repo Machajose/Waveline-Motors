@@ -10,6 +10,16 @@ export async function getManufacturers() {
   return data
 }
 
+export async function getAllManufacturers() {
+  const { data, error } = await supabase
+    .from("manufacturers")
+    .select("*")
+    .order("name")
+
+  if (error) throw error
+  return data
+}
+
 export async function getManufacturerBySlug(slug) {
   const { data, error } = await supabase
     .from("manufacturers")

@@ -11,11 +11,17 @@ import Brands from "./pages/Brands"
 import BrandDetail from "./pages/BrandDetail"
 import News from "./pages/News"
 import Placeholder from "./pages/Placeholder"
+import VehicleDetail from "./pages/VehicleDetail"
 
 
 import AdminLogin from "./pages/admin/Login"
 import AdminVehicleList from "./pages/admin/VehicleList"
 import AdminVehicleForm from "./pages/admin/VehicleForm"
+
+import AdminArticleList from "./pages/admin/ArticleList"
+import AdminArticleForm from "./pages/admin/ArticleForm"
+import AdminManufacturerList from "./pages/admin/ManufacturerList"
+import AdminManufacturerForm from "./pages/admin/ManufacturerForm"
 
 export default function App() {
   return (
@@ -25,7 +31,7 @@ export default function App() {
           <Route element={<PublicLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/vehicles" element={<Vehicles />} />
-            <Route path="/vehicles/:slug" element={<Placeholder title="Vehicle Detail" />} />
+            <Route path="/vehicles/:slug" element={<VehicleDetail />} />
             <Route path="/evolution" element={<Evolution />} />
             <Route path="/brands" element={<Brands />} />
             <Route path="/brands/:slug" element={<BrandDetail />} />
@@ -50,8 +56,14 @@ export default function App() {
             }
           >
             <Route index element={<AdminVehicleList />} />
-            <Route path="vehicles/new" element={<AdminVehicleForm />} />
-            <Route path="vehicles/:id" element={<AdminVehicleForm />} />
+<Route path="vehicles/new" element={<AdminVehicleForm />} />
+<Route path="vehicles/:id" element={<AdminVehicleForm />} />
+<Route path="articles" element={<AdminArticleList />} />
+<Route path="articles/new" element={<AdminArticleForm />} />
+<Route path="articles/:id" element={<AdminArticleForm />} />
+<Route path="brands" element={<AdminManufacturerList />} />
+<Route path="brands/new" element={<AdminManufacturerForm />} />
+<Route path="brands/:id" element={<AdminManufacturerForm />} />
           </Route>
         </Routes>
       </BrowserRouter>
