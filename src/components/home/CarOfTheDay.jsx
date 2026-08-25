@@ -8,7 +8,7 @@ export default function CarOfTheDay() {
   return (
     <section className="mx-auto max-w-7xl px-5 py-16">
       <Reveal>
-        <p className="mb-6 text-sm font-semibold uppercase tracking-widest text-accent">Car of the Day</p>
+        <p className="mb-6 text-sm font-semibold uppercase tracking-widest gradient-signature-text">Car of the Day</p>
       </Reveal>
       <Reveal delay={0.1}>
         <div className="grid gap-8 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] md:grid-cols-2">
@@ -27,9 +27,9 @@ export default function CarOfTheDay() {
             <p className="mt-1 text-white/50">{c.generation} · {c.year}</p>
             <p className="mt-4 text-white/70">{c.description}</p>
             <p className="mt-4 rounded-lg bg-white/5 p-3 text-sm text-white/60">💡 {c.fact}</p>
-            <Link to={`/vehicles/${c.slug}`} className="mt-6 inline-block w-fit rounded-full bg-accent px-6 py-2.5 text-sm font-semibold">
-              Explore
-            </Link>
+            <Link to={`/vehicles/${c.slug}`} className="mt-6 inline-block w-fit rounded-full px-6 py-2.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 gradient-signature">
+  Explore
+</Link>
           </div>
         </div>
       </Reveal>

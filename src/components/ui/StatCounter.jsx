@@ -27,7 +27,7 @@ export default function StatCounter({ value, label, suffix = "" }) {
       transition={{ duration: 0.5 }}
       className="text-center"
     >
-      <span ref={ref} className="block text-4xl font-extrabold tracking-tight sm:text-5xl">
+      <span ref={ref} className="block text-4xl font-extrabold tracking-tight sm:text-5xl gradient-signature-text">
         0{suffix}
       </span>
       <span className="mt-2 block text-sm uppercase tracking-widest text-white/50">{label}</span>

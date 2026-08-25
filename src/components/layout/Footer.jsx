@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import logo from "../../assets/wavelinelogo.jpeg"
 
 export default function Footer() {
   return (
@@ -6,7 +7,7 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-5 py-12">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           <div>
-            <h3 className="mb-3 text-lg font-bold">WAVELINE MOTORS</h3>
+            <img src={logo} alt="Waveline Motors" className="mb-3 h-9 w-auto" />
             <p className="text-sm text-white/50">
               Automotive Media. Vehicle Discovery. Automotive Marketing. Starting in Kenya.
             </p>

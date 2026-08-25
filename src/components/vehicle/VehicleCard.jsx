@@ -24,7 +24,7 @@ export default function VehicleCard({ vehicle }) {
           <h3 className="mt-1 text-lg font-semibold">{vehicle.make} {vehicle.model}</h3>
           <p className="text-sm text-white/50">{vehicle.generation}</p>
           <div className="mt-3 flex items-center justify-between">
-            <span className="font-semibold text-accent">{vehicle.price}</span>
+            <span className="font-semibold gradient-signature-text">{vehicle.price}</span>
             <span className="text-xs text-white/40">{vehicle.horsepower}</span>
           </div>
         </div>

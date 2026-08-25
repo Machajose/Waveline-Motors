@@ -72,9 +72,12 @@ export default function Home() {
           <p className="mx-auto mt-3 max-w-xl text-white/50">
             Featured placements, dealership pages, and automotive marketing packages for your business.
           </p>
-          <Link to="/partner-with-us" className="mt-6 inline-block rounded-full bg-accent px-6 py-3 text-sm font-semibold">
-            Partner With Us
-          </Link>
+          <Link
+  to="/partner-with-us"
+  className="mt-6 inline-block rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 gradient-signature"
+>
+  Partner With Us
+</Link>
         </Reveal>
       </section>
     </div>

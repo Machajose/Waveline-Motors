@@ -36,17 +36,21 @@ export default function Hero() {
           transition={{ duration: 0.6 }}
           className="mb-4 text-sm font-medium uppercase tracking-[0.3em] text-white/60"
         >
-          Kenya · East Africa · Global
+          Your window into the world of vehicles
         </motion.p>
 
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl"
-        >
-          THE WORLD OF MOTORS,<br />IN MOTION.
-        </motion.h1>
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.7, delay: 0.1 }}
+  className="relative text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl"
+>
+  <span
+    className="pointer-events-none absolute -inset-x-10 -inset-y-16 -z-10 opacity-25 blur-3xl gradient-signature"
+    aria-hidden="true"
+  />
+  THE WORLD OF MOTORS,<br />IN MOTION.
+</motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
