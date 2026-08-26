@@ -12,6 +12,7 @@ import BrandDetail from "./pages/BrandDetail"
 import News from "./pages/News"
 import Placeholder from "./pages/Placeholder"
 import VehicleDetail from "./pages/VehicleDetail"
+import ArticleDetail from "./pages/ArticleDetail"
 
 
 import AdminLogin from "./pages/admin/Login"
@@ -36,7 +37,7 @@ export default function App() {
             <Route path="/brands" element={<Brands />} />
             <Route path="/brands/:slug" element={<BrandDetail />} />
             <Route path="/news" element={<News />} />
-            <Route path="/news/:slug" element={<Placeholder title="Article" />} />
+            <Route path="/news/:slug" element={<ArticleDetail />} />
             <Route path="/videos" element={<Placeholder title="Waveline Media" />} />
             <Route path="/for-sale" element={<Placeholder title="Vehicles For Sale" />} />
             <Route path="/dealers" element={<Placeholder title="Dealers" />} />

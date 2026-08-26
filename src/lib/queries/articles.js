@@ -22,3 +22,14 @@ export async function getAllPublishedArticles() {
   if (error) throw error
   return data
 }
+export async function getArticleBySlug(slug) {
+  const { data, error } = await supabase
+    .from("articles")
+    .select("*")
+    .eq("slug", slug)
+    .eq("is_published", true)
+    .single()
+
+  if (error) throw error
+  return data
+}
