@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getManufacturerById, createManufacturer, updateManufacturer } from "../../lib/queries/adminManufacturers"
+import ImageUploadField from "./ImageUploadField"
 
 const emptyForm = { slug: "", name: "", country: "", founded_year: "", logo_url: "" }
 
@@ -59,11 +60,12 @@ export default function AdminManufacturerForm() {
             <input name="founded_year" type="number" value={form.founded_year} onChange={handleChange} className={inputClass} />
           </div>
         </div>
-        <div>
-          <label className={labelClass}>Logo URL</label>
-          <input name="logo_url" value={form.logo_url} onChange={handleChange} className={inputClass} />
-          {form.logo_url && <img src={form.logo_url} alt="preview" className="mt-2 h-12 w-auto object-contain invert" />}
-        </div>
+        <ImageUploadField
+  label="Brand Logo"
+  value={form.logo_url}
+  onChange={(url) => setForm((f) => ({ ...f, logo_url: url }))}
+  folder="brands"
+/>
         <div className="flex gap-3 pt-4">
           <button type="submit" disabled={saving} className="rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-navy disabled:opacity-50">
             {saving ? "Saving…" : isEditing ? "Save Changes" : "Add Brand"}

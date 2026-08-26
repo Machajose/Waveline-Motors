@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getArticleById, createArticle, updateArticle } from "../../lib/queries/adminArticles"
+import ImageUploadField from "./ImageUploadField"
 
 const emptyForm = {
   slug: "", title: "", category: "", excerpt: "", content: "",
@@ -62,11 +63,12 @@ export default function AdminArticleForm() {
             <input name="author" value={form.author} onChange={handleChange} className={inputClass} />
           </div>
         </div>
-        <div>
-          <label className={labelClass}>Image URL</label>
-          <input name="image_url" value={form.image_url} onChange={handleChange} className={inputClass} />
-          {form.image_url && <img src={form.image_url} alt="preview" className="mt-2 h-32 rounded-lg object-cover" />}
-        </div>
+        <ImageUploadField
+  label="Article Image"
+  value={form.image_url}
+  onChange={(url) => setForm((f) => ({ ...f, image_url: url }))}
+  folder="articles"
+/>
         <div>
           <label className={labelClass}>Excerpt (short summary)</label>
           <textarea name="excerpt" value={form.excerpt} onChange={handleChange} rows={2} className={inputClass} />

@@ -1,20 +1,16 @@
-import StatCounter from "../ui/StatCounter"
-
-const stats = [
-  { value: 500, suffix: "+", label: "Vehicles Listed" },
-  { value: 40, suffix: "+", label: "Partner Dealers" },
-  { value: 25, suffix: "+", label: "Brands Covered" },
-  { value: 120, suffix: "+", label: "Articles & Reviews" },
-]
+import Reveal from "../ui/Reveal"
 
 export default function StatsBand() {
   return (
     <section className="border-y border-white/10 bg-white/[0.02] py-14">
-      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 px-5 sm:grid-cols-4">
-        {stats.map((s) => (
-          <StatCounter key={s.label} value={s.value} suffix={s.suffix} label={s.label} />
-        ))}
-      </div>
+      <Reveal className="mx-auto max-w-3xl px-5 text-center">
+        <p className="text-2xl font-bold sm:text-3xl">
+          Built in Kenya. <span className="gradient-signature-text">Growing across East Africa.</span>
+        </p>
+        <p className="mt-3 text-white/50">
+          Automotive media, vehicle discovery, and marketplace — starting here, built to grow.
+        </p>
+      </Reveal>
     </section>
   )
 }

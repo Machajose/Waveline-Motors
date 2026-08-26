@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { supabase } from "../../lib/supabaseClient"
 import { getVehicleById, createVehicle, updateVehicle } from "../../lib/queries/adminVehicles"
+import ImageUploadField from "./ImageUploadField"
 
 const emptyForm = {
   slug: "", manufacturer_id: "", model_name: "", generation: "", year_range: "",
@@ -83,11 +84,12 @@ export default function AdminVehicleForm() {
           </div>
         </div>
 
-        <div>
-          <label className={labelClass}>Image URL</label>
-          <input name="image_url" value={form.image_url} onChange={handleChange} className={inputClass} />
-          {form.image_url && <img src={form.image_url} alt="preview" className="mt-2 h-32 rounded-lg object-cover" />}
-        </div>
+        <ImageUploadField
+  label="Vehicle Photo"
+  value={form.image_url}
+  onChange={(url) => setForm((f) => ({ ...f, image_url: url }))}
+  folder="vehicles"
+/>
 
         <div>
           <label className={labelClass}>Tagline</label>
