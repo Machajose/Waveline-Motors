@@ -29,3 +29,14 @@ export async function compressAndUploadImage(file, folder = "vehicles") {
   const { data } = supabase.storage.from("vehicle-images").getPublicUrl(fileName)
   return data.publicUrl
 }
+export async function deleteImageByUrl(url) {
+  if (!url || !url.includes("/vehicle-images/")) return
+
+  try {
+    const path = url.split("/vehicle-images/")[1]
+    if (!path) return
+    await supabase.storage.from("vehicle-images").remove([path])
+  } catch (err) {
+    console.warn("Could not delete old image:", err.message)
+  }
+}

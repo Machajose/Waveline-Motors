@@ -1,5 +1,6 @@
 import { useState, useRef } from "react"
 import { compressAndUploadImage } from "../../lib/imageUpload"
+import { compressAndUploadImage, deleteImageByUrl } from "../../lib/imageUpload"
 
 export default function ImageUploadField({ value, onChange, folder = "vehicles", label = "Image" }) {
   const [mode, setMode] = useState("upload") // "upload" | "url"
@@ -8,21 +9,23 @@ export default function ImageUploadField({ value, onChange, folder = "vehicles",
   const fileInputRef = useRef(null)
 
   async function handleFileChange(e) {
-    const file = e.target.files?.[0]
-    if (!file) return
+  const file = e.target.files?.[0]
+  if (!file) return
 
-    setUploading(true)
-    setError("")
-    try {
-      const url = await compressAndUploadImage(file, folder)
-      onChange(url)
-    } catch (err) {
-      setError("Upload failed: " + err.message)
-    } finally {
-      setUploading(false)
-      if (fileInputRef.current) fileInputRef.current.value = ""
-    }
+  setUploading(true)
+  setError("")
+  try {
+    const oldUrl = value
+    const url = await compressAndUploadImage(file, folder)
+    onChange(url)
+    if (oldUrl) await deleteImageByUrl(oldUrl)
+  } catch (err) {
+    setError("Upload failed: " + err.message)
+  } finally {
+    setUploading(false)
+    if (fileInputRef.current) fileInputRef.current.value = ""
   }
+}
 
   const inputClass = "w-full rounded-lg border border-white/15 bg-black/40 px-3 py-2 text-sm outline-none focus:border-accent"
 
