@@ -1,5 +1,4 @@
 import { useState, useRef } from "react"
-import { compressAndUploadImage } from "../../lib/imageUpload"
 import { compressAndUploadImage, deleteImageByUrl } from "../../lib/imageUpload"
 
 export default function ImageUploadField({ value, onChange, folder = "vehicles", label = "Image" }) {
