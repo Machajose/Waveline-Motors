@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import logo from "../../assets/logo.png"
+import logo from "../../assets/wavelinelogo.jpeg"
 
 const socialLinks = [
   { label: "TikTok", href: "https://vm.tiktok.com/ZS9BMNFmkGRne-I9wS4/" },
