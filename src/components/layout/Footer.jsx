@@ -1,5 +1,13 @@
 import { Link } from "react-router-dom"
-import logo from "../../assets/wavelinelogo.jpeg"
+import logo from "../../assets/logo.png"
+
+const socialLinks = [
+  { label: "TikTok", href: "https://vm.tiktok.com/ZS9BMNFmkGRne-I9wS4/" },
+  { label: "Instagram", href: "https://www.instagram.com/vwaweru23?igsi=MTNjY2pycWU3dXR6bQ==&utm_source=ig_contact_invite" },
+  { label: "YouTube", href: "https://youtube.com/@wavelinemotors?si=b6cJqSI_IRxF6GyH" },
+  { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61593875457465" },
+  { label: "WhatsApp", href: "https://wa.me/254115265702" },
+]
 
 export default function Footer() {
   return (
@@ -31,7 +39,15 @@ export default function Footer() {
           </div>
           <div>
             <h4 className="mb-3 text-sm font-semibold text-white/80">Follow</h4>
-            <p className="text-sm text-white/50">Instagram · YouTube · TikTok</p>
+            <ul className="space-y-2 text-sm text-white/50">
+              {socialLinks.map((s) => (
+                <li key={s.label}>
+                  <a href={s.href} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-accent">
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
         <div className="mt-10 border-t border-white/10 pt-6 text-xs text-white/40">
