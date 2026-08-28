@@ -9,7 +9,9 @@ const emptyForm = {
   image_url: "", tagline: "", story_text: "", fact_text: "", price: "", horsepower: "",
   body_type: "", fuel: "", transmission: "", condition: "",
   is_published: true, is_featured: false, is_car_of_the_day: false,
+  is_for_sale: false, mileage: "", location: "", whatsapp_number: "",
 }
+
 export default function AdminVehicleForm() {
   const { id } = useParams()
   const isEditing = !!id
@@ -85,11 +87,11 @@ export default function AdminVehicleForm() {
         </div>
 
         <ImageUploadField
-  label="Vehicle Photo"
-  value={form.image_url}
-  onChange={(url) => setForm((f) => ({ ...f, image_url: url }))}
-  folder="vehicles"
-/>
+          label="Vehicle Photo"
+          value={form.image_url}
+          onChange={(url) => setForm((f) => ({ ...f, image_url: url }))}
+          folder="vehicles"
+        />
 
         <div>
           <label className={labelClass}>Tagline</label>
@@ -99,6 +101,11 @@ export default function AdminVehicleForm() {
         <div>
           <label className={labelClass}>Story / Discover More Text</label>
           <textarea name="story_text" value={form.story_text} onChange={handleChange} rows={5} className={inputClass} />
+        </div>
+
+        <div>
+          <label className={labelClass}>Interesting Fact (shown on Car of the Day)</label>
+          <textarea name="fact_text" value={form.fact_text || ""} onChange={handleChange} rows={2} className={inputClass} />
         </div>
 
         <div className="grid grid-cols-3 gap-4">
@@ -118,6 +125,21 @@ export default function AdminVehicleForm() {
 
         <div className="grid grid-cols-3 gap-4">
           <div>
+            <label className={labelClass}>Mileage</label>
+            <input name="mileage" value={form.mileage || ""} onChange={handleChange} placeholder="45,000 km" className={inputClass} />
+          </div>
+          <div>
+            <label className={labelClass}>Location</label>
+            <input name="location" value={form.location || ""} onChange={handleChange} placeholder="Nairobi" className={inputClass} />
+          </div>
+          <div>
+            <label className={labelClass}>WhatsApp Number</label>
+            <input name="whatsapp_number" value={form.whatsapp_number || ""} onChange={handleChange} placeholder="254712345678" className={inputClass} />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4">
+          <div>
             <label className={labelClass}>Fuel</label>
             <input name="fuel" value={form.fuel} onChange={handleChange} placeholder="Diesel" className={inputClass} />
           </div>
@@ -131,27 +153,27 @@ export default function AdminVehicleForm() {
           </div>
         </div>
 
-       <div>
-  <label className={labelClass}>Interesting Fact (shown on Car of the Day)</label>
-  <textarea name="fact_text" value={form.fact_text || ""} onChange={handleChange} rows={2} className={inputClass} />
-</div>
+        <div className="space-y-2">
+          <label className="flex items-center gap-2 text-sm text-white/60">
+            <input type="checkbox" name="is_published" checked={form.is_published} onChange={handleChange} />
+            Published (visible on public site)
+          </label>
+          <label className="flex items-center gap-2 text-sm text-white/60">
+            <input type="checkbox" name="is_featured" checked={form.is_featured || false} onChange={handleChange} />
+            Show in Featured Vehicles (homepage)
+          </label>
+          <label className="flex items-center gap-2 text-sm text-white/60">
+            <input type="checkbox" name="is_car_of_the_day" checked={form.is_car_of_the_day || false} onChange={handleChange} />
+            Set as Car of the Day
+          </label>
+          <label className="flex items-center gap-2 text-sm text-white/60">
+            <input type="checkbox" name="is_for_sale" checked={form.is_for_sale || false} onChange={handleChange} />
+            List in Vehicles For Sale
+          </label>
+        </div>
 
-<div className="space-y-2">
-  <label className="flex items-center gap-2 text-sm text-white/60">
-    <input type="checkbox" name="is_published" checked={form.is_published} onChange={handleChange} />
-    Published (visible on public site)
-  </label>
-  <label className="flex items-center gap-2 text-sm text-white/60">
-    <input type="checkbox" name="is_featured" checked={form.is_featured || false} onChange={handleChange} />
-    Show in Featured Vehicles (homepage)
-  </label>
-  <label className="flex items-center gap-2 text-sm text-white/60">
-    <input type="checkbox" name="is_car_of_the_day" checked={form.is_car_of_the_day || false} onChange={handleChange} />
-    Set as Car of the Day
-  </label>
-</div>
         <div className="flex gap-3 pt-4">
-          <button type="submit" disabled={saving} className="rounded-full bg-accent px-6 py-2.5 text-sm font-semibold disabled:opacity-50">
+          <button type="submit" disabled={saving} className="rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-navy disabled:opacity-50">
             {saving ? "Saving…" : isEditing ? "Save Changes" : "Add Vehicle"}
           </button>
           <button type="button" onClick={() => navigate("/admin")} className="rounded-full border border-white/20 px-6 py-2.5 text-sm font-semibold hover:bg-white/10">

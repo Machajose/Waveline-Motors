@@ -64,15 +64,15 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="mt-10 flex flex-wrap items-center justify-center gap-4"
         >
-          <Link to="/vehicles" className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-black hover:bg-white/90">
-            Explore Vehicles
-          </Link>
-          <Link to="/evolution" className="rounded-full border border-white/30 px-6 py-3 text-sm font-semibold hover:bg-white/10">
-            Discover Automotive History
-          </Link>
-          <Link to="/for-sale" className="rounded-full border border-white/30 px-6 py-3 text-sm font-semibold hover:bg-white/10">
-            Vehicles For Sale
-          </Link>
+          <Link to="/brands" className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-black hover:bg-white/90">
+  Explore Vehicles
+</Link>
+<Link to="/contact" className="rounded-full border border-white/30 px-6 py-3 text-sm font-semibold hover:bg-white/10">
+  Contact Us
+</Link>
+<Link to="/for-sale" className="rounded-full border border-white/30 px-6 py-3 text-sm font-semibold hover:bg-white/10">
+  Vehicles For Sale
+</Link>
         </motion.div>
       </motion.div>
     </section>

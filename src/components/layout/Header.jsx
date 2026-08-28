@@ -8,7 +8,6 @@ const navLinks = [
   { label: "Evolution", to: "/evolution" },
   { label: "Brands", to: "/brands" },
   { label: "For Sale", to: "/for-sale" },
-  { label: "Videos", to: "/videos" },
   { label: "News", to: "/news" },
 ]
 

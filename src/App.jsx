@@ -13,6 +13,8 @@ import News from "./pages/News"
 import Placeholder from "./pages/Placeholder"
 import VehicleDetail from "./pages/VehicleDetail"
 import ArticleDetail from "./pages/ArticleDetail"
+import ForSale from "./pages/ForSale"
+import Contact from "./pages/Contact"
 
 
 import AdminLogin from "./pages/admin/Login"
@@ -39,12 +41,12 @@ export default function App() {
             <Route path="/news" element={<News />} />
             <Route path="/news/:slug" element={<ArticleDetail />} />
             <Route path="/videos" element={<Placeholder title="Waveline Media" />} />
-            <Route path="/for-sale" element={<Placeholder title="Vehicles For Sale" />} />
+            <Route path="/for-sale" element={<ForSale />} />
             <Route path="/dealers" element={<Placeholder title="Dealers" />} />
             <Route path="/garage" element={<Placeholder title="Waveline Garage" />} />
             <Route path="/kenya" element={<Placeholder title="Waveline Kenya" />} />
             <Route path="/creative" element={<Placeholder title="Waveline Creative" />} />
-            <Route path="/partner-with-us" element={<Placeholder title="Partner With Us" />} />
+            <Route path="/contact" element={<Contact />} />
           </Route>
 
           <Route path="/admin/login" element={<AdminLogin />} />

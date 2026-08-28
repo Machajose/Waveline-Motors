@@ -59,3 +59,14 @@ export async function getCarOfTheDay() {
   if (error) throw error
   return data
 }
+export async function getVehiclesForSale() {
+  const { data, error } = await supabase
+    .from("vehicles")
+    .select("*, manufacturers(name, slug)")
+    .eq("is_published", true)
+    .eq("is_for_sale", true)
+    .order("created_at", { ascending: false })
+
+  if (error) throw error
+  return data
+}
