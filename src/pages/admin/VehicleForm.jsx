@@ -10,8 +10,8 @@ const emptyForm = {
   body_type: "", fuel: "", transmission: "", condition: "",
   is_published: true, is_featured: false, is_car_of_the_day: false,
   is_for_sale: false, mileage: "", location: "", whatsapp_number: "",
+  evolution_group: "", featured_by: "",
 }
-
 export default function AdminVehicleForm() {
   const { id } = useParams()
   const isEditing = !!id
@@ -86,6 +86,20 @@ export default function AdminVehicleForm() {
           </div>
         </div>
 
+        <div>
+  <label className={labelClass}>Evolution Group (optional)</label>
+  <input
+    name="evolution_group"
+    value={form.evolution_group || ""}
+    onChange={handleChange}
+    placeholder="land-cruiser"
+    className={inputClass}
+  />
+  <p className="mt-1 text-xs text-white/30">
+    Give matching vehicles the same value (e.g. "land-cruiser") to group them into one Evolution timeline.
+  </p>
+</div>
+
         <ImageUploadField
           label="Vehicle Photo"
           value={form.image_url}
@@ -137,6 +151,18 @@ export default function AdminVehicleForm() {
             <input name="whatsapp_number" value={form.whatsapp_number || ""} onChange={handleChange} placeholder="254712345678" className={inputClass} />
           </div>
         </div>
+
+          <div>
+  <label className={labelClass}>Featured By (sponsor/partner company)</label>
+  <input
+    name="featured_by"
+    value={form.featured_by || ""}
+    onChange={handleChange}
+    placeholder="e.g. CFAO Motors Kenya"
+    className={inputClass}
+  />
+  <p className="mt-1 text-xs text-white/30">Only shown for Vehicles For Sale listings, if filled in.</p>
+</div>
 
         <div className="grid grid-cols-3 gap-4">
           <div>

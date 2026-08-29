@@ -29,8 +29,16 @@ export default function ForSale() {
                   <img src={v.image_url} alt={v.model_name} className="h-full w-full object-cover" />
                 </div>
                 <div className="p-4">
-                  <p className="text-xs uppercase tracking-wide text-white/40">{v.manufacturers?.name} · {v.year_range}</p>
-                  <h3 className="mt-1 text-lg font-semibold">{v.model_name}</h3>
+  <div className="flex items-center justify-between">
+    <p className="text-xs uppercase tracking-wide text-white/40">{v.manufacturers?.name} · {v.year_range}</p>
+    {v.featured_by && (
+      <span className="rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase text-white gradient-signature">
+        Sponsored
+      </span>
+    )}
+  </div>
+  <h3 className="mt-1 text-lg font-semibold">{v.model_name}</h3>
+  {v.featured_by && <p className="mt-0.5 text-xs text-white/40">Listed by {v.featured_by}</p>}
                   <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-white/50">
                     {v.mileage && <span>{v.mileage}</span>}
                     {v.location && <span>{v.location}</span>}

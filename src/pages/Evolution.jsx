@@ -1,45 +1,45 @@
-import { motion, useScroll } from "framer-motion"
-import { useRef } from "react"
-import { landCruiserEvolution } from "../lib/mock/evolution"
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import { getEvolutionGroups } from "../lib/queries/vehicles"
 import Reveal from "../components/ui/Reveal"
 
+function formatGroupName(group) {
+  return group.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+}
+
 export default function Evolution() {
-  const containerRef = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 0.8", "end 0.6"],
-  })
+  const [groups, setGroups] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    getEvolutionGroups().then(setGroups).finally(() => setLoading(false))
+  }, [])
+
+  if (loading) return <div className="mx-auto max-w-6xl px-5 py-24 text-center text-white/50">Loading…</div>
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-12">
       <h1 className="text-3xl font-bold">Vehicle Evolution</h1>
-      <p className="mt-2 text-white/50">Toyota Land Cruiser — 1951 → present</p>
+      <p className="mt-2 text-white/50">Pick a model to see how it has evolved across generations.</p>
 
-      <div ref={containerRef} className="relative mt-12 space-y-10 pl-8">
-        {/* Static track */}
-        <div className="absolute left-0 top-0 h-full w-px bg-white/10" />
-        {/* Animated draw-in line, grows with scroll progress */}
-        <motion.div
-          className="absolute left-0 top-0 w-px origin-top bg-accent"
-          style={{ scaleY: scrollYProgress, height: "100%" }}
-        />
-
-        {landCruiserEvolution.map((g, i) => (
-          <Reveal key={g.gen} delay={i * 0.05} y={30}>
-            <div className="relative">
-              <span className="absolute -left-[38px] top-1.5 h-3 w-3 rounded-full bg-accent" />
-              <div className="grid gap-4 rounded-xl border border-white/10 bg-white/[0.03] p-5 sm:grid-cols-[200px_1fr]">
-                <img src={g.image} alt={g.gen} className="h-32 w-full rounded-lg object-cover sm:h-full" />
-                <div>
-                  <h3 className="text-xl font-bold">{g.gen}</h3>
-                  <p className="text-sm text-white/40">{g.years}</p>
-                  <p className="mt-2 text-white/70">{g.summary}</p>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-        ))}
-      </div>
+      {groups.length === 0 ? (
+        <p className="mt-12 text-center text-white/50">No evolution timelines added yet.</p>
+      ) : (
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {groups.map((g, i) => (
+            <Reveal key={g.group} delay={i * 0.08}>
+              <Link
+                to={`/evolution/${g.group}`}
+                className="block rounded-xl border border-white/10 bg-white/[0.03] p-6 transition-colors hover:border-white/25"
+              >
+                <p className="text-xs uppercase tracking-wide text-accent">{g.brand}</p>
+                <h3 className="mt-1 text-xl font-semibold">{formatGroupName(g.group)}</h3>
+                <p className="mt-2 text-sm text-white/50">View full generation timeline →</p>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

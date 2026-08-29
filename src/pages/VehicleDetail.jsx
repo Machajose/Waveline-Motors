@@ -106,24 +106,31 @@ export default function VehicleDetail() {
           </Reveal>
         )}
 
-        <Reveal delay={0.25}>
-          <div className="mt-10 flex flex-wrap gap-4">
-            {vehicle.manufacturers?.slug && (
-              <Link
-                to={`/brands/${vehicle.manufacturers.slug}`}
-                className="rounded-full border border-white/20 px-6 py-2.5 text-sm font-semibold hover:bg-white/10"
-              >
-                More {vehicle.manufacturers.name} Vehicles
-              </Link>
-            )}
-            <Link
-              to="/vehicles"
-              className="rounded-full px-6 py-2.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 gradient-signature"
-            >
-              Browse All Vehicles
-            </Link>
-          </div>
-        </Reveal>
+        {vehicle.evolution_group && !vehicle.is_for_sale && (
+  <Reveal delay={0.22}>
+    <Link
+      to={`/evolution/${vehicle.evolution_group}`}
+      className="group mt-10 block overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] p-6 transition-colors hover:border-accent/40 sm:p-8"
+    >
+      <div className="flex items-center justify-between gap-6">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-widest gradient-signature-text">
+            Explore Its Evolution
+          </p>
+          <h3 className="mt-2 text-xl font-bold sm:text-2xl">
+            See how the {vehicle.model_name} became what it is today
+          </h3>
+          <p className="mt-2 text-sm text-white/50">
+            From its earliest generation to now — every redesign, every leap forward, laid out on one timeline.
+          </p>
+        </div>
+        <span className="hidden flex-none text-2xl text-white/30 transition-transform group-hover:translate-x-1 group-hover:text-accent sm:block">
+          →
+        </span>
+      </div>
+    </Link>
+  </Reveal>
+)}
       </div>
     </div>
   )

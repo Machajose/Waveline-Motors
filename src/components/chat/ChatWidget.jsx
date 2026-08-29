@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { MessageCircle, X, Send } from "lucide-react"
 import { sendChatMessage } from "../../lib/queries/chat"
+import ReactMarkdown from "react-markdown"
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false)
@@ -62,15 +63,26 @@ export default function ChatWidget() {
 
             <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto p-4">
               {messages.map((m, i) => (
-                <div
-                  key={i}
-                  className={`max-w-[85%] rounded-lg px-3 py-2 text-sm ${
-                    m.role === "user" ? "ml-auto bg-accent text-white" : "bg-white/[0.06] text-white/85"
-                  }`}
-                >
-                  {m.content}
-                </div>
-              ))}
+  <motion.div
+    key={i}
+    initial={{ opacity: 0, y: 6 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.25 }}
+    className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
+      m.role === "user"
+        ? "ml-auto rounded-br-sm bg-[#1c1c1f] text-white/90"
+        : "rounded-bl-sm bg-white/[0.04] text-white/75"
+    }`}
+  >
+    {m.role === "assistant" ? (
+      <div className="prose-chat">
+        <ReactMarkdown>{m.content}</ReactMarkdown>
+      </div>
+    ) : (
+      m.content
+    )}
+  </motion.div>
+))}
               {loading && <div className="max-w-[85%] rounded-lg bg-white/[0.06] px-3 py-2 text-sm text-white/50">Typing…</div>}
             </div>
 

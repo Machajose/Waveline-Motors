@@ -34,3 +34,24 @@ body {
   background-clip: text;
   color: transparent;
 }
+.prose-chat p {
+  margin: 0 0 0.5em 0;
+}
+.prose-chat p:last-child {
+  margin-bottom: 0;
+}
+.prose-chat ul, .prose-chat ol {
+  margin: 0.25em 0 0.5em 1.1em;
+  padding: 0;
+}
+.prose-chat li {
+  margin-bottom: 0.15em;
+}
+.prose-chat strong {
+  font-weight: 600;
+  color: white;
+}
+.prose-chat a {
+  color: var(--color-accent);
+  text-decoration: underline;
+}

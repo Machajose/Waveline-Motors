@@ -15,6 +15,7 @@ import VehicleDetail from "./pages/VehicleDetail"
 import ArticleDetail from "./pages/ArticleDetail"
 import ForSale from "./pages/ForSale"
 import Contact from "./pages/Contact"
+import EvolutionTimeline from "./pages/EvolutionTimeline"
 
 
 import AdminLogin from "./pages/admin/Login"
@@ -36,6 +37,7 @@ export default function App() {
             <Route path="/vehicles" element={<Vehicles />} />
             <Route path="/vehicles/:slug" element={<VehicleDetail />} />
             <Route path="/evolution" element={<Evolution />} />
+            <Route path="/evolution/:group" element={<EvolutionTimeline />} />
             <Route path="/brands" element={<Brands />} />
             <Route path="/brands/:slug" element={<BrandDetail />} />
             <Route path="/news" element={<News />} />
