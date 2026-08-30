@@ -57,9 +57,6 @@ export default function EvolutionTimeline() {
                   <h3 className="text-xl font-bold">{v.generation || v.model_name}</h3>
                   <p className="text-sm text-white/40">{v.year_range}</p>
                   <p className="mt-2 text-white/70">{v.tagline || v.story_text}</p>
-                  <Link to={`/vehicles/${v.slug}`} className="mt-3 inline-block text-sm text-accent hover:underline">
-                    View Full Details →
-                  </Link>
                 </div>
               </div>
             </div>

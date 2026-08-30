@@ -16,6 +16,7 @@ import ArticleDetail from "./pages/ArticleDetail"
 import ForSale from "./pages/ForSale"
 import Contact from "./pages/Contact"
 import EvolutionTimeline from "./pages/EvolutionTimeline"
+import Creative from "./pages/Creative"
 
 
 import AdminLogin from "./pages/admin/Login"
@@ -42,7 +43,7 @@ export default function App() {
             <Route path="/brands/:slug" element={<BrandDetail />} />
             <Route path="/news" element={<News />} />
             <Route path="/news/:slug" element={<ArticleDetail />} />
-            <Route path="/videos" element={<Placeholder title="Waveline Media" />} />
+            <Route path="/creative" element={<Creative />} />
             <Route path="/for-sale" element={<ForSale />} />
             <Route path="/dealers" element={<Placeholder title="Dealers" />} />
             <Route path="/garage" element={<Placeholder title="Waveline Garage" />} />

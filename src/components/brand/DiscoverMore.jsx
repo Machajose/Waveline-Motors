@@ -5,7 +5,6 @@ import { Link } from "react-router-dom"
 export default function DiscoverMore({ vehicle }) {
   const [expanded, setExpanded] = useState(false)
 
-  // Collapse back when the selected vehicle changes
   useEffect(() => setExpanded(false), [vehicle?.id])
 
   if (!vehicle) return null
@@ -33,29 +32,29 @@ export default function DiscoverMore({ vehicle }) {
             )}
           </AnimatePresence>
 
-          <div className="mt-5 flex flex-wrap items-center gap-4">
-  <button
-    onClick={() => setExpanded((e) => !e)}
-    className="rounded-full border border-white/20 px-5 py-2 text-sm font-semibold transition-colors hover:bg-white/10"
-  >
-    {expanded ? "Show Less" : "Discover More"}
-  </button>
-  <Link to={`/vehicles/${vehicle.slug}`} className="text-sm font-medium text-accent hover:underline">
-    View Full Vehicle Page →
-  </Link>
-</div>
+          {vehicle.evolution_group && !vehicle.is_for_sale && (
+            <Link
+              to={`/evolution/${vehicle.evolution_group}`}
+              className="mt-4 flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-white/[0.02] px-4 py-3 transition-colors hover:border-accent/40"
+            >
+              <span className="text-sm">
+                <span className="font-semibold gradient-signature-text">Explore Its Evolution →</span>
+                <span className="ml-2 text-white/50">See how the {vehicle.name} has changed over the years.</span>
+              </span>
+            </Link>
+          )}
 
-{vehicle.evolution_group && !vehicle.is_for_sale && (
-  <Link
-    to={`/evolution/${vehicle.evolution_group}`}
-    className="group mt-4 flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-white/[0.02] px-4 py-3 transition-colors hover:border-accent/40"
-  >
-    <span className="text-sm">
-      <span className="font-semibold gradient-signature-text">Explore Its Evolution →</span>
-      <span className="ml-2 text-white/50">See how the {vehicle.name} has changed over the years.</span>
-    </span>
-  </Link>
-)}
+          <div className="mt-5 flex flex-wrap items-center gap-4">
+            <button
+              onClick={() => setExpanded((e) => !e)}
+              className="rounded-full border border-white/20 px-5 py-2 text-sm font-semibold transition-colors hover:bg-white/10"
+            >
+              {expanded ? "Show Less" : "Discover More"}
+            </button>
+            <Link to={`/vehicles/${vehicle.slug}`} className="text-sm font-medium text-accent hover:underline">
+              View Full Vehicle Page →
+            </Link>
+          </div>
         </div>
       </div>
     </div>
