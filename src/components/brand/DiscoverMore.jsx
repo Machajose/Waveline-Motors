@@ -27,7 +27,7 @@ export default function DiscoverMore({ vehicle }) {
                 transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                 className="overflow-hidden"
               >
-                <p className="mt-4 leading-relaxed text-white/70">{vehicle.story}</p>
+                <p className="mt-4 whitespace-pre-line leading-relaxed text-white/70">{vehicle.story}</p>
               </motion.div>
             )}
           </AnimatePresence>

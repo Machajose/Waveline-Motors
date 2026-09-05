@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom"
 import { motion } from "framer-motion"
-import { getVehicleBySlug } from "../lib/queries/vehicles"
+import { getVehicleBySlug, getVehiclesByEvolutionGroup } from "../lib/queries/vehicles"
 import Reveal from "../components/ui/Reveal"
+import EvolutionSection from "../components/vehicle/EvolutionSection"
 
 export default function VehicleDetail() {
   const { slug } = useParams()
   const [vehicle, setVehicle] = useState(null)
+  const [evolutionVehicles, setEvolutionVehicles] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
@@ -14,7 +16,15 @@ export default function VehicleDetail() {
     setLoading(true)
     setError(false)
     getVehicleBySlug(slug)
-      .then(setVehicle)
+      .then(async (v) => {
+        setVehicle(v)
+        if (v?.evolution_group) {
+          const groupVehicles = await getVehiclesByEvolutionGroup(v.evolution_group)
+          setEvolutionVehicles(groupVehicles)
+        } else {
+          setEvolutionVehicles([])
+        }
+      })
       .catch(() => setError(true))
       .finally(() => setLoading(false))
   }, [slug])
@@ -95,7 +105,7 @@ export default function VehicleDetail() {
           <Reveal delay={0.15}>
             <div className="mt-10 rounded-xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
               <h2 className="text-xl font-semibold">The Story</h2>
-              <p className="mt-3 leading-relaxed text-white/70">{vehicle.story_text}</p>
+              <p className="mt-3 whitespace-pre-line leading-relaxed text-white/70">{vehicle.story_text}</p>
             </div>
           </Reveal>
         )}
@@ -106,8 +116,29 @@ export default function VehicleDetail() {
           </Reveal>
         )}
 
-        
+        <Reveal delay={0.25}>
+          <div className="mt-10 flex flex-wrap gap-4">
+            {vehicle.manufacturers?.slug && (
+              <Link
+                to={`/brands/${vehicle.manufacturers.slug}`}
+                className="rounded-full border border-white/20 px-6 py-2.5 text-sm font-semibold hover:bg-white/10"
+              >
+                More {vehicle.manufacturers.name} Vehicles
+              </Link>
+            )}
+            <Link
+              to="/vehicles"
+              className="rounded-full px-6 py-2.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 gradient-signature"
+            >
+              Browse All Vehicles
+            </Link>
+          </div>
+        </Reveal>
       </div>
+
+      {evolutionVehicles.length > 0 && !vehicle.is_for_sale && (
+        <EvolutionSection vehicles={evolutionVehicles} />
+      )}
     </div>
   )
 }

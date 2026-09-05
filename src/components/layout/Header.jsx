@@ -4,12 +4,10 @@ import { Menu, X } from "lucide-react"
 import logo from "../../assets/wavelinelogo.jpeg"
 const navLinks = [
   { label: "Vehicles", to: "/vehicles" },
-  { label: "Evolution", to: "/evolution" },
   { label: "Brands", to: "/brands" },
   { label: "For Sale", to: "/for-sale" },
   { label: "News", to: "/news" },
 ]
-
 export default function Header() {
   const [open, setOpen] = useState(false)
 

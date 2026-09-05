@@ -31,3 +31,22 @@ export async function deleteVehicle(id) {
   const { error } = await supabase.from("vehicles").delete().eq("id", id)
   if (error) throw error
 }
+export async function renameEvolutionGroup(oldGroup, newGroup) {
+  const { error } = await supabase
+    .from("vehicles")
+    .update({ evolution_group: newGroup })
+    .eq("evolution_group", oldGroup)
+
+  if (error) throw error
+}
+
+export async function getVehiclesByEvolutionGroupAdmin(group) {
+  const { data, error } = await supabase
+    .from("vehicles")
+    .select("*, manufacturers(name, slug)")
+    .eq("evolution_group", group)
+    .order("year_range")
+
+  if (error) throw error
+  return data
+}

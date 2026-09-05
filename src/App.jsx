@@ -6,7 +6,6 @@ import AdminLayout from "./components/layout/AdminLayout"
 
 import Home from "./pages/Home"
 import Vehicles from "./pages/Vehicles"
-import Evolution from "./pages/Evolution"
 import Brands from "./pages/Brands"
 import BrandDetail from "./pages/BrandDetail"
 import News from "./pages/News"
@@ -15,8 +14,9 @@ import VehicleDetail from "./pages/VehicleDetail"
 import ArticleDetail from "./pages/ArticleDetail"
 import ForSale from "./pages/ForSale"
 import Contact from "./pages/Contact"
-import EvolutionTimeline from "./pages/EvolutionTimeline"
 import Creative from "./pages/Creative"
+import AdminEvolutionList from "./pages/admin/EvolutionList"
+import AdminEvolutionGroupDetail from "./pages/admin/EvolutionGroupDetail"
 
 
 import AdminLogin from "./pages/admin/Login"
@@ -37,8 +37,6 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/vehicles" element={<Vehicles />} />
             <Route path="/vehicles/:slug" element={<VehicleDetail />} />
-            <Route path="/evolution" element={<Evolution />} />
-            <Route path="/evolution/:group" element={<EvolutionTimeline />} />
             <Route path="/brands" element={<Brands />} />
             <Route path="/brands/:slug" element={<BrandDetail />} />
             <Route path="/news" element={<News />} />
@@ -70,6 +68,8 @@ export default function App() {
 <Route path="brands" element={<AdminManufacturerList />} />
 <Route path="brands/new" element={<AdminManufacturerForm />} />
 <Route path="brands/:id" element={<AdminManufacturerForm />} />
+<Route path="evolution" element={<AdminEvolutionList />} />
+<Route path="evolution/:group" element={<AdminEvolutionGroupDetail />} />
           </Route>
         </Routes>
       </BrowserRouter>

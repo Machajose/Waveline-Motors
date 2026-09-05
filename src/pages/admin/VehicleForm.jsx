@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams, useSearchParams } from "react-router-dom"
 import { supabase } from "../../lib/supabaseClient"
 import { getVehicleById, createVehicle, updateVehicle } from "../../lib/queries/adminVehicles"
 import ImageUploadField from "./ImageUploadField"
@@ -12,11 +12,14 @@ const emptyForm = {
   is_for_sale: false, mileage: "", location: "", whatsapp_number: "",
   evolution_group: "", featured_by: "",
 }
+
 export default function AdminVehicleForm() {
   const { id } = useParams()
+  const [searchParams] = useSearchParams()
   const isEditing = !!id
   const navigate = useNavigate()
-  const [form, setForm] = useState(emptyForm)
+  const prefillGroup = searchParams.get("evolution_group")
+  const [form, setForm] = useState(prefillGroup ? { ...emptyForm, evolution_group: prefillGroup } : emptyForm)
   const [manufacturers, setManufacturers] = useState([])
   const [saving, setSaving] = useState(false)
 
@@ -87,18 +90,18 @@ export default function AdminVehicleForm() {
         </div>
 
         <div>
-  <label className={labelClass}>Evolution Group (optional)</label>
-  <input
-    name="evolution_group"
-    value={form.evolution_group || ""}
-    onChange={handleChange}
-    placeholder="land-cruiser"
-    className={inputClass}
-  />
-  <p className="mt-1 text-xs text-white/30">
-    Give matching vehicles the same value (e.g. "land-cruiser") to group them into one Evolution timeline.
-  </p>
-</div>
+          <label className={labelClass}>Evolution Group (optional)</label>
+          <input
+            name="evolution_group"
+            value={form.evolution_group || ""}
+            onChange={handleChange}
+            placeholder="land-cruiser"
+            className={inputClass}
+          />
+          <p className="mt-1 text-xs text-white/30">
+            Give matching vehicles the same value (e.g. "land-cruiser") to group them into one Evolution timeline.
+          </p>
+        </div>
 
         <ImageUploadField
           label="Vehicle Photo"
@@ -152,17 +155,17 @@ export default function AdminVehicleForm() {
           </div>
         </div>
 
-          <div>
-  <label className={labelClass}>Featured By (sponsor/partner company)</label>
-  <input
-    name="featured_by"
-    value={form.featured_by || ""}
-    onChange={handleChange}
-    placeholder="e.g. CFAO Motors Kenya"
-    className={inputClass}
-  />
-  <p className="mt-1 text-xs text-white/30">Only shown for Vehicles For Sale listings, if filled in.</p>
-</div>
+        <div>
+          <label className={labelClass}>Featured By (sponsor/partner company)</label>
+          <input
+            name="featured_by"
+            value={form.featured_by || ""}
+            onChange={handleChange}
+            placeholder="e.g. CFAO Motors Kenya"
+            className={inputClass}
+          />
+          <p className="mt-1 text-xs text-white/30">Only shown for Vehicles For Sale listings, if filled in.</p>
+        </div>
 
         <div className="grid grid-cols-3 gap-4">
           <div>
