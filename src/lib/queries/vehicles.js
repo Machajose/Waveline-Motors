@@ -17,6 +17,7 @@ export async function getAllVehicles() {
     .from("vehicles")
     .select("*, manufacturers(name, slug)")
     .eq("is_published", true)
+    .eq("is_for_sale", false)
     .order("created_at", { ascending: false })
 
   if (error) throw error

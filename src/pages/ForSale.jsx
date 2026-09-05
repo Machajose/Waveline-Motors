@@ -18,7 +18,7 @@ export default function ForSale() {
       <h1 className="text-3xl font-bold">Vehicles For Sale</h1>
       <p className="mt-2 text-white/50">Browse vehicles currently available through Waveline Motors.</p>
 
-      {vehicles.length === 0 ? (
+            {vehicles.length === 0 ? (
         <p className="mt-12 text-center text-white/50">No vehicles listed for sale right now — check back soon.</p>
       ) : (
         <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -29,16 +29,16 @@ export default function ForSale() {
                   <img src={v.image_url} alt={v.model_name} className="h-full w-full object-cover" />
                 </div>
                 <div className="p-4">
-  <div className="flex items-center justify-between">
-    <p className="text-xs uppercase tracking-wide text-white/40">{v.manufacturers?.name} · {v.year_range}</p>
-    {v.featured_by && (
-      <span className="rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase text-white gradient-signature">
-        Sponsored
-      </span>
-    )}
-  </div>
-  <h3 className="mt-1 text-lg font-semibold">{v.model_name}</h3>
-  {v.featured_by && <p className="mt-0.5 text-xs text-white/40">Listed by {v.featured_by}</p>}
+                  <div className="flex items-center justify-between">
+                    <p className="text-xs uppercase tracking-wide text-white/40">{v.manufacturers?.name} · {v.year_range}</p>
+                    {v.featured_by && (
+                      <span className="rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase text-white gradient-signature">
+                        Sponsored
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="mt-1 text-lg font-semibold">{v.model_name}</h3>
+                  {v.featured_by && <p className="mt-0.5 text-xs text-white/40">Listed by {v.featured_by}</p>}
                   <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-white/50">
                     {v.mileage && <span>{v.mileage}</span>}
                     {v.location && <span>{v.location}</span>}
@@ -57,7 +57,7 @@ export default function ForSale() {
                     </Link>
                     {v.whatsapp_number && (
                       
-                        <a href={`https://wa.me/${v.whatsapp_number.replace(/\D/g, "")}`}
+                       <a href={`https://wa.me/${v.whatsapp_number.replace(/\D/g, "")}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex-1 rounded-full px-4 py-2 text-center text-sm font-semibold text-white gradient-signature"
@@ -72,6 +72,29 @@ export default function ForSale() {
           ))}
         </div>
       )}
+
+      <div className="mt-16 rounded-xl border border-white/10 bg-white/[0.03] p-8 text-center sm:p-12">
+        <h2 className="text-xl font-bold sm:text-2xl">Didn't find what you're looking for?</h2>
+        <p className="mx-auto mt-2 max-w-md text-white/50">
+          Reach out and let us know what vehicle you're after — we'll help you find it.
+        </p>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+          
+            <a href="https://wa.me/254115265702"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full px-6 py-2.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 gradient-signature"
+          >
+            Chat on WhatsApp
+          </a>
+          <Link
+            to="/contact"
+            className="rounded-full border border-white/30 px-6 py-2.5 text-sm font-semibold hover:bg-white/10"
+          >
+            Send a Message
+          </Link>
+        </div>
+      </div>
     </div>
   )
 }
