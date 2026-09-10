@@ -18,6 +18,7 @@ export async function getAllVehicles() {
     .select("*, manufacturers(name, slug)")
     .eq("is_published", true)
     .eq("is_for_sale", false)
+    .eq("is_evolution_only", false)
     .order("created_at", { ascending: false })
 
   if (error) throw error
@@ -41,6 +42,7 @@ export async function getFeaturedVehicles() {
     .select("*, manufacturers(name, slug)")
     .eq("is_published", true)
     .eq("is_featured", true)
+    .eq("is_evolution_only", false)
     .order("created_at", { ascending: false })
     .limit(4)
 
@@ -54,6 +56,7 @@ export async function getCarOfTheDay() {
     .select("*, manufacturers(name, slug)")
     .eq("is_published", true)
     .eq("is_car_of_the_day", true)
+    .eq("is_evolution_only", false)
     .limit(1)
     .maybeSingle()
 

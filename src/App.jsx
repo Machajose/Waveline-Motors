@@ -48,6 +48,7 @@ export default function App() {
             <Route path="/kenya" element={<Placeholder title="Waveline Kenya" />} />
             <Route path="/creative" element={<Placeholder title="Waveline Creative" />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/partner-with-us" element={<Contact />} />
           </Route>
 
           <Route path="/admin/login" element={<AdminLogin />} />

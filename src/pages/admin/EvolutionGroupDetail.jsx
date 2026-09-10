@@ -156,26 +156,26 @@ export default function AdminEvolutionGroupDetail() {
   }
 
   async function handleSaveNew(tileForm) {
-    const baseModelName = vehicles[0]?.model_name || formatGroupName(group)
-    const manufacturerId = vehicles[0]?.manufacturer_id
-    const slugBase = slugify(`${baseModelName}-${tileForm.generation || Date.now()}`)
+  const baseModelName = vehicles[0]?.model_name || formatGroupName(group)
+  const manufacturerId = vehicles[0]?.manufacturer_id
+  const slugBase = slugify(`${baseModelName}-${tileForm.generation || Date.now()}`)
 
-    await createVehicle({
-      slug: slugBase,
-      manufacturer_id: manufacturerId,
-      model_name: baseModelName,
-      generation: tileForm.generation,
-      year_range: tileForm.year_range,
-      image_url: tileForm.image_url,
-      tagline: tileForm.tagline,
-      story_text: tileForm.story_text,
-      evolution_group: group,
-      is_published: true,
-    })
-    setAddingNew(false)
-    load()
-  }
-
+  await createVehicle({
+    slug: slugBase,
+    manufacturer_id: manufacturerId,
+    model_name: baseModelName,
+    generation: tileForm.generation,
+    year_range: tileForm.year_range,
+    image_url: tileForm.image_url,
+    tagline: tileForm.tagline,
+    story_text: tileForm.story_text,
+    evolution_group: group,
+    is_published: true,
+    is_evolution_only: true,
+  })
+  setAddingNew(false)
+  load()
+}
   if (loading) return <p className="text-white/50">Loading…</p>
 
   return (

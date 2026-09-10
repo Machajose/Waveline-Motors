@@ -4,6 +4,7 @@ import { getAllVehiclesAdmin, deleteVehicle } from "../../lib/queries/adminVehic
 
 const FILTERS = [
   { key: "all", label: "All Vehicles" },
+  { key: "standalone", label: "Standalone Vehicles" },
   { key: "featured", label: "Featured" },
   { key: "car_of_the_day", label: "Car of the Day" },
   { key: "for_sale", label: "For Sale" },
@@ -33,24 +34,26 @@ export default function AdminVehicleList() {
   }
 
   const counts = {
-    all: vehicles.length,
-    featured: vehicles.filter((v) => v.is_featured).length,
-    car_of_the_day: vehicles.filter((v) => v.is_car_of_the_day).length,
-    for_sale: vehicles.filter((v) => v.is_for_sale).length,
-    evolution: vehicles.filter((v) => v.evolution_group).length,
-    no_group: vehicles.filter((v) => !v.evolution_group).length,
-    unpublished: vehicles.filter((v) => !v.is_published).length,
-  }
+  all: vehicles.length,
+  standalone: vehicles.filter((v) => !v.is_evolution_only).length,
+  featured: vehicles.filter((v) => v.is_featured).length,
+  car_of_the_day: vehicles.filter((v) => v.is_car_of_the_day).length,
+  for_sale: vehicles.filter((v) => v.is_for_sale).length,
+  evolution: vehicles.filter((v) => v.evolution_group).length,
+  no_group: vehicles.filter((v) => !v.evolution_group).length,
+  unpublished: vehicles.filter((v) => !v.is_published).length,
+}
 
-  const filtered = vehicles.filter((v) => {
-    if (filter === "featured") return v.is_featured
-    if (filter === "car_of_the_day") return v.is_car_of_the_day
-    if (filter === "for_sale") return v.is_for_sale
-    if (filter === "evolution") return !!v.evolution_group
-    if (filter === "no_group") return !v.evolution_group
-    if (filter === "unpublished") return !v.is_published
-    return true
-  })
+const filtered = vehicles.filter((v) => {
+  if (filter === "standalone") return !v.is_evolution_only
+  if (filter === "featured") return v.is_featured
+  if (filter === "car_of_the_day") return v.is_car_of_the_day
+  if (filter === "for_sale") return v.is_for_sale
+  if (filter === "evolution") return !!v.evolution_group
+  if (filter === "no_group") return !v.evolution_group
+  if (filter === "unpublished") return !v.is_published
+  return true
+})
 
   if (loading) return <p className="text-white/50">Loading…</p>
 
@@ -106,6 +109,7 @@ export default function AdminVehicleList() {
                     {v.is_car_of_the_day && <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-white/60">COTD</span>}
                     {v.is_for_sale && <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-white/60">For Sale</span>}
                     {v.evolution_group && <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-white/60">{v.evolution_group}</span>}
+                    {v.is_evolution_only && <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-accent">Generation Tile</span>}
                     {!v.is_published && <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-[10px] text-red-400">Unpublished</span>}
                   </div>
                 </td>
