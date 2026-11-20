@@ -8,6 +8,7 @@ const FILTERS = [
   { key: "featured", label: "Featured" },
   { key: "car_of_the_day", label: "Car of the Day" },
   { key: "for_sale", label: "For Sale" },
+  { key: "sold", label: "Sold" },
   { key: "evolution", label: "In Evolution" },
   { key: "no_group", label: "Not in Evolution" },
   { key: "unpublished", label: "Unpublished" },
@@ -39,6 +40,7 @@ export default function AdminVehicleList() {
   featured: vehicles.filter((v) => v.is_featured).length,
   car_of_the_day: vehicles.filter((v) => v.is_car_of_the_day).length,
   for_sale: vehicles.filter((v) => v.is_for_sale).length,
+  sold: vehicles.filter((v) => v.is_sold).length,
   evolution: vehicles.filter((v) => v.evolution_group).length,
   no_group: vehicles.filter((v) => !v.evolution_group).length,
   unpublished: vehicles.filter((v) => !v.is_published).length,
@@ -49,6 +51,7 @@ const filtered = vehicles.filter((v) => {
   if (filter === "featured") return v.is_featured
   if (filter === "car_of_the_day") return v.is_car_of_the_day
   if (filter === "for_sale") return v.is_for_sale
+  if (filter === "sold") return v.is_sold
   if (filter === "evolution") return !!v.evolution_group
   if (filter === "no_group") return !v.evolution_group
   if (filter === "unpublished") return !v.is_published
@@ -108,6 +111,7 @@ const filtered = vehicles.filter((v) => {
                     {v.is_featured && <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-white/60">Featured</span>}
                     {v.is_car_of_the_day && <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-white/60">COTD</span>}
                     {v.is_for_sale && <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-white/60">For Sale</span>}
+                    {v.is_sold && <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-[10px] text-red-300">Sold</span>}
                     {v.evolution_group && <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-white/60">{v.evolution_group}</span>}
                     {v.is_evolution_only && <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-accent">Generation Tile</span>}
                     {!v.is_published && <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-[10px] text-red-400">Unpublished</span>}

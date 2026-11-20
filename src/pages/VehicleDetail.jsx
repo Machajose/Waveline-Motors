@@ -45,8 +45,14 @@ export default function VehicleDetail() {
 
   const specs = [
     { label: "Price", value: vehicle.price },
+    { label: "Year of Manufacture", value: vehicle.manufacture_year },
     { label: "Horsepower", value: vehicle.horsepower },
     { label: "Body Type", value: vehicle.body_type },
+    { label: "Engine Capacity", value: vehicle.engine_capacity_cc ? `${Number(vehicle.engine_capacity_cc).toLocaleString()} cc` : null },
+    { label: "Odometer", value: vehicle.mileage },
+    { label: "Exterior Colour", value: vehicle.exterior_color },
+    { label: "Interior Colour", value: vehicle.interior_color },
+    { label: "Origin", value: vehicle.vehicle_origin === "local" ? "Local" : vehicle.vehicle_origin === "imported" ? "Imported" : null },
     { label: "Fuel", value: vehicle.fuel },
     { label: "Transmission", value: vehicle.transmission },
     { label: "Condition", value: vehicle.condition },
@@ -77,6 +83,7 @@ export default function VehicleDetail() {
             )}
             <h1 className="mt-2 text-3xl font-extrabold sm:text-5xl">{vehicle.model_name}</h1>
             <p className="mt-1 text-white/50">{vehicle.generation} · {vehicle.year_range}</p>
+            {vehicle.is_sold && <span className="mt-3 inline-block rounded-full bg-red-500/90 px-3 py-1 text-xs font-bold uppercase text-white">Sold</span>}
           </div>
         </div>
       </section>

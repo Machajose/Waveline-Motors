@@ -1,9 +1,12 @@
 import { supabase } from "../supabaseClient"
 
+// Keep chassis_number out of anonymous/public reads. Admin queries use their own select("*").
+const PUBLIC_VEHICLE_SELECT = "id,slug,manufacturer_id,model_name,generation,year_range,manufacture_year,image_url,tagline,story_text,fact_text,price,horsepower,body_type,fuel,transmission,condition,is_published,is_featured,is_car_of_the_day,is_for_sale,is_sold,is_evolution_only,mileage,location,whatsapp_number,evolution_group,featured_by,created_at,engine_capacity_cc,interior_color,exterior_color,vehicle_origin,manufacturers(name,slug)"
+
 export async function getVehiclesByManufacturerSlug(manufacturerSlug) {
   const { data, error } = await supabase
     .from("vehicles")
-    .select("*, manufacturers!inner(slug)")
+    .select("id,slug,manufacturer_id,model_name,generation,year_range,manufacture_year,image_url,tagline,story_text,fact_text,price,horsepower,body_type,fuel,transmission,condition,is_published,is_featured,is_car_of_the_day,is_for_sale,is_sold,is_evolution_only,mileage,location,whatsapp_number,evolution_group,featured_by,created_at,engine_capacity_cc,interior_color,exterior_color,vehicle_origin,manufacturers!inner(slug)")
     .eq("manufacturers.slug", manufacturerSlug)
     .eq("is_published", true)
     .order("created_at")
@@ -15,7 +18,7 @@ export async function getVehiclesByManufacturerSlug(manufacturerSlug) {
 export async function getAllVehicles() {
   const { data, error } = await supabase
     .from("vehicles")
-    .select("*, manufacturers(name, slug)")
+    .select(PUBLIC_VEHICLE_SELECT)
     .eq("is_published", true)
     .eq("is_for_sale", false)
     .eq("is_evolution_only", false)
@@ -28,7 +31,7 @@ export async function getAllVehicles() {
 export async function getVehicleBySlug(slug) {
   const { data, error } = await supabase
     .from("vehicles")
-    .select("*, manufacturers(name, slug)")
+    .select(PUBLIC_VEHICLE_SELECT)
     .eq("slug", slug)
     .single()
 
@@ -39,7 +42,7 @@ export async function getVehicleBySlug(slug) {
 export async function getFeaturedVehicles() {
   const { data, error } = await supabase
     .from("vehicles")
-    .select("*, manufacturers(name, slug)")
+    .select(PUBLIC_VEHICLE_SELECT)
     .eq("is_published", true)
     .eq("is_featured", true)
     .eq("is_evolution_only", false)
@@ -53,7 +56,7 @@ export async function getFeaturedVehicles() {
 export async function getCarOfTheDay() {
   const { data, error } = await supabase
     .from("vehicles")
-    .select("*, manufacturers(name, slug)")
+    .select(PUBLIC_VEHICLE_SELECT)
     .eq("is_published", true)
     .eq("is_car_of_the_day", true)
     .eq("is_evolution_only", false)
@@ -66,7 +69,7 @@ export async function getCarOfTheDay() {
 export async function getVehiclesForSale() {
   const { data, error } = await supabase
     .from("vehicles")
-    .select("*, manufacturers(name, slug)")
+    .select(PUBLIC_VEHICLE_SELECT)
     .eq("is_published", true)
     .eq("is_for_sale", true)
     .order("created_at", { ascending: false })
@@ -77,7 +80,7 @@ export async function getVehiclesForSale() {
 export async function getEvolutionGroups() {
   const { data, error } = await supabase
     .from("vehicles")
-    .select("evolution_group, manufacturers(name, slug)")
+    .select("evolution_group, is_published, manufacturers(name, slug)")
     .eq("is_published", true)
     .not("evolution_group", "is", null)
 
@@ -95,7 +98,7 @@ export async function getEvolutionGroups() {
 export async function getVehiclesByEvolutionGroup(group) {
   const { data, error } = await supabase
     .from("vehicles")
-    .select("*, manufacturers(name, slug)")
+    .select(PUBLIC_VEHICLE_SELECT)
     .eq("is_published", true)
     .eq("evolution_group", group)
     .order("year_range")

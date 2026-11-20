@@ -8,6 +8,7 @@ export default function Vehicles() {
   const [manufacturers, setManufacturers] = useState([])
   const [loading, setLoading] = useState(true)
 
+  const [search, setSearch] = useState("")
   const [manufacturerFilter, setManufacturerFilter] = useState("")
   const [bodyTypeFilter, setBodyTypeFilter] = useState("")
   const [conditionFilter, setConditionFilter] = useState("")
@@ -31,6 +32,10 @@ export default function Vehicles() {
   const conditions = [...new Set(vehicles.map((v) => v.condition).filter(Boolean))]
 
   const filtered = vehicles.filter((v) => {
+    const term = search.trim().toLowerCase()
+    const searchable = [v.manufacturers?.name, v.model_name, v.generation, v.year_range, v.body_type, v.fuel, v.transmission, v.horsepower, v.condition]
+      .filter(Boolean).join(" ").toLowerCase()
+    if (term && !searchable.includes(term)) return false
     if (manufacturerFilter && v.manufacturers?.slug !== manufacturerFilter) return false
     if (bodyTypeFilter && v.body_type !== bodyTypeFilter) return false
     if (conditionFilter && v.condition !== conditionFilter) return false
@@ -44,12 +49,13 @@ export default function Vehicles() {
   }))
 
   function clearFilters() {
+    setSearch("")
     setManufacturerFilter("")
     setBodyTypeFilter("")
     setConditionFilter("")
   }
 
-  const hasActiveFilters = manufacturerFilter || bodyTypeFilter || conditionFilter
+  const hasActiveFilters = search || manufacturerFilter || bodyTypeFilter || conditionFilter
 
   if (loading) {
     return <div className="mx-auto max-w-7xl px-5 py-24 text-center text-white/50">Loading…</div>
@@ -58,9 +64,17 @@ export default function Vehicles() {
   return (
     <div className="mx-auto max-w-7xl px-5 py-12">
       <h1 className="text-3xl font-bold">Vehicle Explorer</h1>
-      <p className="mt-2 text-white/50">Search and filter by make, body type and condition.</p>
+      <p className="mt-2 text-white/50">Search and filter by make, model, body type, year and condition.</p>
 
       <div className="mt-8 flex flex-wrap items-center gap-3">
+        <input
+          type="search"
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+          placeholder="Search make, model, year…"
+          aria-label="Search vehicles"
+          className="w-full rounded-full border border-white/15 bg-black/40 px-4 py-2 text-sm outline-none focus:border-accent sm:max-w-sm"
+        />
         <select
           value={manufacturerFilter}
           onChange={(e) => setManufacturerFilter(e.target.value)}

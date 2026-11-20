@@ -5,11 +5,12 @@ import { getVehicleById, createVehicle, updateVehicle } from "../../lib/queries/
 import ImageUploadField from "./ImageUploadField"
 
 const emptyForm = {
-  slug: "", manufacturer_id: "", model_name: "", generation: "", year_range: "",
+  slug: "", manufacturer_id: "", model_name: "", generation: "", year_range: "", manufacture_year: "",
   image_url: "", tagline: "", story_text: "", fact_text: "", price: "", horsepower: "",
-  body_type: "", fuel: "", transmission: "", condition: "",
+  body_type: "", fuel: "", transmission: "", condition: "", engine_capacity_cc: "",
+  interior_color: "", exterior_color: "", chassis_number: "", vehicle_origin: "",
   is_published: true, is_featured: false, is_car_of_the_day: false,
-  is_for_sale: false, mileage: "", location: "", whatsapp_number: "",
+  is_for_sale: false, is_sold: false, mileage: "", location: "", whatsapp_number: "",
   evolution_group: "", featured_by: "",
 }
 
@@ -32,17 +33,26 @@ export default function AdminVehicleForm() {
 
   function handleChange(e) {
     const { name, value, type, checked } = e.target
-    setForm((f) => ({ ...f, [name]: type === "checkbox" ? checked : value }))
+    setForm((f) => {
+      const next = { ...f, [name]: type === "checkbox" ? checked : value }
+      if (name === "is_for_sale" && !next.is_for_sale) next.is_sold = false
+      return next
+    })
   }
 
   async function handleSubmit(e) {
     e.preventDefault()
     setSaving(true)
     try {
+      const payload = {
+        ...form,
+        manufacture_year: form.manufacture_year ? Number(form.manufacture_year) : null,
+        engine_capacity_cc: form.engine_capacity_cc ? Number(form.engine_capacity_cc) : null,
+      }
       if (isEditing) {
-        await updateVehicle(id, form)
+        await updateVehicle(id, payload)
       } else {
-        await createVehicle(form)
+        await createVehicle(payload)
       }
       navigate("/admin")
     } catch (err) {
@@ -87,6 +97,11 @@ export default function AdminVehicleForm() {
             <label className={labelClass}>Year Range</label>
             <input name="year_range" value={form.year_range} onChange={handleChange} placeholder="2020–present" className={inputClass} />
           </div>
+        </div>
+
+        <div>
+          <label className={labelClass}>Year of Manufacture</label>
+          <input name="manufacture_year" type="number" min="1900" max="2100" value={form.manufacture_year || ""} onChange={handleChange} placeholder="2022" className={inputClass} />
         </div>
 
         <div>
@@ -137,6 +152,34 @@ export default function AdminVehicleForm() {
           <div>
             <label className={labelClass}>Body Type</label>
             <input name="body_type" value={form.body_type} onChange={handleChange} placeholder="SUV" className={inputClass} />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className={labelClass}>Engine Capacity (cc)</label>
+            <input name="engine_capacity_cc" type="number" min="0" value={form.engine_capacity_cc || ""} onChange={handleChange} placeholder="1998" className={inputClass} />
+          </div>
+          <div>
+            <label className={labelClass}>Vehicle Origin</label>
+            <select name="vehicle_origin" value={form.vehicle_origin || ""} onChange={handleChange} className={inputClass}>
+              <option value="">Select origin…</option>
+              <option value="local">Local</option>
+              <option value="imported">Imported</option>
+            </select>
+          </div>
+          <div>
+            <label className={labelClass}>Interior Colour</label>
+            <input name="interior_color" value={form.interior_color || ""} onChange={handleChange} placeholder="Black" className={inputClass} />
+          </div>
+          <div>
+            <label className={labelClass}>Exterior Colour</label>
+            <input name="exterior_color" value={form.exterior_color || ""} onChange={handleChange} placeholder="Pearl white" className={inputClass} />
+          </div>
+          <div className="col-span-2">
+            <label className={labelClass}>Chassis Number</label>
+            <input name="chassis_number" value={form.chassis_number || ""} onChange={handleChange} className={inputClass} />
+            <p className="mt-1 text-xs text-white/30">Stored for admin reference; it won’t be shown on public listings.</p>
           </div>
         </div>
 
@@ -198,6 +241,10 @@ export default function AdminVehicleForm() {
           <label className="flex items-center gap-2 text-sm text-white/60">
             <input type="checkbox" name="is_for_sale" checked={form.is_for_sale || false} onChange={handleChange} />
             List in Vehicles For Sale
+          </label>
+          <label className="flex items-center gap-2 text-sm text-white/60">
+            <input type="checkbox" name="is_sold" checked={form.is_sold || false} onChange={handleChange} />
+            Mark as Sold (shown under Sold listings)
           </label>
         </div>
 
